@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LawDisTrA web module for query of lawsuits and distributions">
+    <meta name="author" content="zidenis">
+    <title>LawDisTrA web module</title>
+    <!-- Bootstrap Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <style>
+        .card {
+            background: #fff;
+            border-radius: 2px;
+            display: inline-block;
+            padding: 1rem;
+            margin: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            width: 100%;
+            /*position: relative;*/
+        }
+
+        .jumbotron {
+            padding-top: 0px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h3>LawDisTrA: Auditor da Distribuição</h3>
+        {{^numProcesso}}
+        <div class="col-sm-12">
+            <div class="card">
+                <legend>Erro</legend>
+                Processo não encontrado.
+            </div>
+        </div>
+        {{/numProcesso}}
+        {{#numProcesso}}
+        <div class="col-sm-6">
+            <div class="card">
+                <legend>Processo: {{faseAtual.sigClasse}} -
+                    {{numProcesso}}-{{numDigito}}.{{anoProcesso}}.{{numSegmento}}.{{numTribunal}}.{{numOrigem}}
+                </legend>
+                <strong>Classe:</strong> {{faseAtual.nomClasse}}<br>
+                <strong>Inicio da fase atual:</strong> {{faseAtual.dtaInicioFase}}<br>
+                <strong>Órgão Judicante:</strong> {{faseAtual.sigOJ}} - {{faseAtual.desOJ}}<br>
+                <strong>Relator:</strong> {{faseAtual.codMagistrado}} - {{faseAtual.nomMagistrado}}<br>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <legend>Partes</legend>
+                {{#partes}}
+                <strong>{{txtDenParte}}:</strong> {{nomParte}}
+                {{#advogados}}
+                <br><strong>Advogado:</strong> {{nomAdvogado}}
+                {{/advogados}}
+                {{#procuradores}}
+                <br><strong>Procurador:</strong> {{nomProcurador}}
+                {{/procuradores}}
+                <br><br>
+                {{/partes}}
+                <div>
+                </div>
+            </div>
+        </div>
+        {{#distribuicoes}}
+        <div class="col-sm-6">
+            <div class="card">
+                <legend>Distribuição</legend>
+
+                <span class="col-sm-6">
+                    <strong>Número:</strong> {{seqDistribuicao}}
+                </span>
+                <span class="col-sm-6">
+                    <strong>Data:</strong> {{dtaDistribuicao}}
+                </span>
+                <span class="col-sm-12">
+                    <strong>Regra:</strong> {{txtRegraAplicada}}
+                </span>
+                <span class="col-sm-12">
+                    <strong>Resultado:</strong> {{resultado}}
+                </span>
+                {{#sorteio}}
+                <span class="col-sm-12">
+                    <strong>Detalhes do sorteio:</strong><br>
+                    <span style="margin-left: 1em">
+                        O. J. competentes: {{sorteio.listSigOJsCompetentes}}<br>
+                    </span>
+                    <span style="margin-left: 1em">
+                        O. J. sorteado: {{sorteio.sigOJSorteado}}<br>
+                    </span>
+                    <span style="margin-left: 1em">
+                        Composição do O. J. {{sorteio.sigOJSorteado}}: {{sorteio.listCodMagsOJSorteado}}<br>
+                    </span>
+                    <span style="margin-left: 1em">
+                        Magistrados Impedidos: {{sorteio.magsImpedidos}}<br>
+                    </span>
+                    <span style="margin-left: 1em">
+                        Magistrado Sorteado: {{sorteio.codMagistradoSorteado}}
+                    </span>
+                </span>
+                {{/sorteio}}
+                {{#impedimentos}}
+                <span class="col-sm-12">
+                    <strong>Impedimentos para {{codMagistrado}}:</strong><br>
+                    {{#impedProcesso}}
+                        {{#codProcesso}}
+                        <span style="margin-left: 1em">
+                            Processo: {{numProcesso}}-{{numDigito}}.{{anoProcesso}}.{{numSegmento}}.{{numTribunal}}.{{numOrigem}}<br>
+                        </span>
+                        {{/codProcesso}}
+                    {{/impedProcesso}}
+                    {{#impedPartes}}
+                        {{#codParte}}
+                        <span style="margin-left: 1em">
+                            Parte: {{nomParte}}<br>
+                        </span>
+                        {{/codParte}}
+                    {{/impedPartes}}
+                    {{#impedAdvogados}}
+                        {{#numAdvogado}}
+                        <span style="margin-left: 1em">
+                            Advogado: {{nomAdvogado}}<br>
+                        </span>
+                        {{/numAdvogado}}
+                    {{/impedAdvogados}}
+                </span>
+                {{/impedimentos}}
+
+                {{#txtDistribuicao}}
+                <span class="col-sm-12">
+                    <strong>Detalhamento:</strong> {{txtDistribuicao}}
+                </span>
+                {{/txtDistribuicao}}
+                <div class="col-sm-12 text-right">
+                    <form action="trace" method="GET" role="form" target="_blank">
+                        <input type="hidden" name="num" value="{{seqDistribuicao}}">
+                        <input type="hidden" name="proc" value="{{codProcesso}}">
+                        <input type="submit" class="btn btn-info btn-xs" value="Rastrear Agentes"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/distribuicoes}}
+        {{#distribuicoes}}
+        {{#processoRelacionado}}
+        <div class="col-sm-6">
+            <div class="card">
+                <legend>Processo Relacionado</legend>
+                <strong>Processo:</strong> {{faseAtual.sigClasse}} -
+                {{numProcesso}}-{{numDigito}}.{{anoProcesso}}.{{numSegmento}}.{{numTribunal}}.{{numOrigem}}<br>
+                <strong>Classe:</strong> {{faseAtual.nomClasse}}<br>
+                <strong>Inicio da fase atual:</strong> {{faseAtual.dtaInicioFase}}<br>
+                <strong>Órgão Judicante:</strong> {{faseAtual.sigOJ}} - {{faseAtual.desOJ}}<br>
+                <strong>Relator:</strong> {{faseAtual.codMagistrado}} - {{faseAtual.nomMagistrado}}<br>
+                <div class="col-sm-12 text-right">
+                    <form action="lawsuit" method="GET" role="form">
+                        <input type="hidden" name="num" value="{{numProcesso}}">
+                        <input type="hidden" name="dig" value="{{numDigito}}">
+                        <input type="hidden" name="ano" value="{{anoProcesso}}">
+                        <input type="hidden" name="trib" value="{{numTribunal}}">
+                        <input type="hidden" name="vara" value="{{numOrigem}}">
+                        <input type="submit" class="btn btn-info btn-xs" value="Auditar"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/processoRelacionado}}
+        {{/distribuicoes}}
+        <div class="col-sm-12">
+            <div class="card">
+                <legend>Fases Anteriores</legend>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Início da Fase</th>
+                        <!--<th>Termino da Fase</th>-->
+                        <th>Classe</th>
+                        <th>Orgão Judicante</th>
+                        <th>Relator</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#fasesAnteriores}}
+                    <tr>
+                        <td>{{dtaInicioFase}}</td>
+                        <!--<td>{{dtaTerminoFase}}</td>-->
+                        <td>{{sigClasse}} - {{nomClasse}}</td>
+                        <td>{{sigOJ}} - {{desOJ}}</td>
+                        <td>{{codMagistrado}} - {{nomMagistrado}}</td>
+                    </tr>
+                    {{/fasesAnteriores}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{/numProcesso}}
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>
+</body>
+</html>

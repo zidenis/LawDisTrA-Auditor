@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LawDisTrA web module for query of lawsuits and distributions">
+    <meta name="author" content="zidenis">
+    <title>LawDisTrA web module</title>
+    <!-- Bootstrap Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <style>
+        .card {
+            background: #fff;
+            border-radius: 2px;
+            display: inline-block;
+            margin: 1rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            /*position: relative;*/
+        }
+
+        .jumbotron {
+            padding-top: 0px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h3>LawDisTrA: Auditor da Distribuição</h3>
+        <div class="container card">
+            <form action="lawsuit" method="GET" role="form">
+                <div class="form-group">
+                    <legend>Pesquisa Processual</legend>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="num">Número</label>
+                        <div>
+                            <input type="number" class="form-control" name="num" id="num" min="1" max="9999999"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dig">Dígito</label>
+                        <div>
+                            <input type="number" class="form-control" name="dig" id="dig" min="0" max="99" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ano">Ano</label>
+                        <div>
+                            <input type="number" class="form-control" name="ano" id="ano" min="2000" max="2016"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="org">Órgão</label>
+                        <div>
+                            <input disabled type="number" class="form-control" name="org" min="5" max="5" id="org"
+                                   value="5"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="trib">Tribunal</label>
+                        <div>
+                            <input type="number" class="form-control" name="trib" id="trib" min="0" max="24" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vara">Vara</label>
+                        <div>
+                            <input type="number" class="form-control" name="vara" id="vara" min="0" max="9999"
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Consultar"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
