@@ -1,0 +1,11 @@
+name: LawDisTrA-Auditor
+version: 1.0.0
+description: LawDisTrA - módulo Auditor da Distribuição
+homepage: http://github.com/zidenis/LawDisTrA-Auditor
+environment:
+  sdk: 1.16.0
+dependencies:
+  woomera: 1.0.2
+  postgresql: 0.3.3
+  dartson: 0.2.5
+  mustache4dart: '>= 1.0.0 < 2.0.0'
